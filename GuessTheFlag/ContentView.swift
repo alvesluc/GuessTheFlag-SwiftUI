@@ -17,6 +17,20 @@ struct ContentView: View {
     @State private var score = 0
     @State private var round = 1
 
+    // Challenge from Views and modifiers
+    struct FlagImage: View {
+        var country: String
+        
+        var body: some View {
+            Image(country)
+                .clipShape(RoundedRectangle(
+                    cornerRadius: 12,
+                    style: .continuous)
+                )
+                .shadow(radius: 5)
+        }
+    }
+    
     var body: some View {
         ZStack {
             LinearGradient(colors: [.blue, .white], startPoint: .top, endPoint: .bottom)
@@ -39,9 +53,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label: {
-                            Image(countries[number])
-                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .shadow(radius: 5)
+                            FlagImage(country: countries[number])
                         }
                         .alert(scoreTitle, isPresented: $showingScore) {
                             Button("Continue") {
